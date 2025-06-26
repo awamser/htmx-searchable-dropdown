@@ -1,0 +1,35 @@
+<!-- If no search term, show initial message -->
+#if(searchTerm == nil || searchTerm == ""):
+<div class="py-2 text-sm text-gray-500 px-4">
+    Type at least 3 characters to search...
+</div>
+#elseif(tooShort == true):
+<div class="py-2 text-sm text-gray-500 px-4">
+    Type at least 3 characters to search...
+</div>
+#else:
+#if(count(users) == 0):
+<div class="py-3 text-sm text-gray-500 px-4">
+    No users found matching "#(searchTerm)"
+</div>
+#else:
+#for(user in users):
+<button type="button"
+    class="w-full text-left px-4 py-2 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition-colors duration-150"
+    @click="selected = '#(user.name) (#(user.email))'; open = false">
+    <div class="flex items-center justify-between">
+        <div>
+            <p class="text-sm font-medium text-gray-900">#(user.name)</p>
+            <p class="text-sm text-gray-500">#(user.email)</p>
+        </div>
+        <span class="text-gray-400">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+        </span>
+    </div>
+</button>
+#endfor
+#endif
+#endif
